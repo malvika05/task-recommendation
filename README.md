@@ -56,38 +56,6 @@ The Task Recommendation System uses the Nearest Neighbors algorithm from the `sc
 
 The script includes a sample dataset with tasks and their attributes for demonstration purposes.
 
-### Testing Function
-
-The `test_recommendation_system` function demonstrates the functionality of the script and validates its accuracy:
-
-```python
-def test_recommendation_system():
-    test_times = ['05:00 PM', '11:00 AM', '02:00 PM']
-    expected_tasks = {
-        '05:00 PM': ['Client call', 'Documentation update', 'Performance analysis'],
-        '11:00 AM': ['Team meeting', 'Design discussion', 'Email follow-up'],
-        '02:00 PM': ['Code deployment', 'Project planning', 'Code review']
-    }
-
-    for time, expected in expected_tasks.items():
-        print(f"Testing time: {time}")
-        recommended = task_recommendation_system(time)
-        print(f"Recommended tasks: {recommended}")
-        print(f"Expected tasks: {expected}")
-
-        # Calculate precision and recall
-        correct_recommendations = set(recommended) & set(expected)
-        precision = len(correct_recommendations) / len(recommended) if recommended else 0
-        recall = len(correct_recommendations) / len(expected) if expected else 0
-
-        print(f"Precision: {precision:.2f}")
-        print(f"Recall: {recall:.2f}\n")
-
-# Run the testing function
-if __name__ == "__main__":
-    test_recommendation_system()
-```
-
 ### Validation Metrics
 
 - **Precision**: The fraction of relevant tasks among the recommended tasks.
