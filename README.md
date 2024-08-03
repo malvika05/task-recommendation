@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Task Recommendation System utilizes a Nearest Neighbors algorithm to recommend tasks based on a given time input. By analyzing task durations and completion statuses, it identifies tasks that are similar to the specified time.
+The Task Recommendation System uses a Nearest Neighbors algorithm to recommend tasks based on a given time input. By analyzing task durations and completion statuses, it identifies tasks that are similar to the specified time.
 
 ## Installation
 
@@ -12,7 +12,7 @@ To run the Task Recommendation System, you need Python and the following depende
 - `numpy`
 - `scikit-learn`
 
-You can install the necessary dependencies using `pip`. Run the following command:
+You can install the necessary dependencies using `pip`:
 
 ```bash
 pip install pandas numpy scikit-learn
@@ -22,13 +22,13 @@ pip install pandas numpy scikit-learn
 
 1. **Clone or download the repository**: Ensure you have the script file, e.g., `task_recommendation.py`.
 
-2. **Run the script**: Execute the script with Python. You can provide an example time to get task recommendations.
+2. **Run the script**: Execute the script with Python. You can provide an example time to get task recommendations:
 
    ```bash
    python task_recommendation.py
    ```
 
-   Alternatively, you can modify the `task_recommendation_system` function call in the script to test different times:
+   Alternatively, modify the `task_recommendation_system` function call in the script to test different times:
 
    ```python
    print(task_recommendation_system('05:00 PM'))
@@ -43,12 +43,57 @@ pip install pandas numpy scikit-learn
 
 ## Recommendation Algorithm
 
-The Task Recommendation System uses the Nearest Neighbors algorithm from the `scikit-learn` library. 
+The Task Recommendation System uses the Nearest Neighbors algorithm from the `scikit-learn` library.
 
 **How It Works:**
 1. **Feature Extraction**: Converts start times to minutes and encodes the completion status as binary (1 for completed, 0 for not completed). Calculates task duration in minutes.
 2. **Model Training**: Uses the Nearest Neighbors algorithm to fit a model on the features.
 3. **Task Recommendation**: Given a time, converts it to minutes and finds the nearest neighbors based on the features. Recommends tasks similar to the given time.
+
+## Testing and Validation
+
+### Sample Dataset
+
+The script includes a sample dataset with tasks and their attributes for demonstration purposes.
+
+### Testing Function
+
+The `test_recommendation_system` function demonstrates the functionality of the script and validates its accuracy:
+
+```python
+def test_recommendation_system():
+    test_times = ['05:00 PM', '11:00 AM', '02:00 PM']
+    expected_tasks = {
+        '05:00 PM': ['Client call', 'Documentation update', 'Performance analysis'],
+        '11:00 AM': ['Team meeting', 'Design discussion', 'Email follow-up'],
+        '02:00 PM': ['Code deployment', 'Project planning', 'Code review']
+    }
+
+    for time, expected in expected_tasks.items():
+        print(f"Testing time: {time}")
+        recommended = task_recommendation_system(time)
+        print(f"Recommended tasks: {recommended}")
+        print(f"Expected tasks: {expected}")
+
+        # Calculate precision and recall
+        correct_recommendations = set(recommended) & set(expected)
+        precision = len(correct_recommendations) / len(recommended) if recommended else 0
+        recall = len(correct_recommendations) / len(expected) if expected else 0
+
+        print(f"Precision: {precision:.2f}")
+        print(f"Recall: {recall:.2f}\n")
+
+# Run the testing function
+if __name__ == "__main__":
+    test_recommendation_system()
+```
+
+### Validation Metrics
+
+- **Precision**: The fraction of relevant tasks among the recommended tasks.
+- **Recall**: The fraction of relevant tasks that were recommended out of all relevant tasks.
+
+The precision and recall metrics help evaluate the accuracy of the task recommendations.
 
 ## Areas for Potential Improvement
 
